@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "870580962135",
+    "firebase_url": "https://rain-tracker.firebaseio.com",
+    "project_id": "rain-tracker",
+    "storage_bucket": "rain-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870580962135:android:f04846af90e74864",
+        "android_client_info": {
+          "package_name": "com.myburgh.ryno.rain_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "870580962135-iq54immgvucq2l2f1dnug3n8ik8ml1cg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myburgh.ryno.rain_tracker",
+            "certificate_hash": "ed98e210b0ec157d1d19b3c6e016ebeb1a511e9f"
+          }
+        },
+        {
+          "client_id": "870580962135-6aae1lan9l7r77soqggiipihn60m399k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCznNSr1VDzYIteqS6qHS5JORCSGTxcIh8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "870580962135-6aae1lan9l7r77soqggiipihn60m399k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
