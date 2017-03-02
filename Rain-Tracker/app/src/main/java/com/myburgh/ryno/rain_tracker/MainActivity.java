@@ -10,12 +10,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.myburgh.ryno.rain_tracker.signin.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAnalytics mFirebaseAnalytics;
+    public static Menu menu;
+    public static GoogleSignInAccount googleAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +38,19 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        this.menu = menu;
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+
         return true;
     }
 
@@ -58,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         else if (id == R.id.action_signin)
         {
             Intent intent = new Intent(this, LoginActivity.class);
+            intent.setAction("signOut");
             startActivity(intent);
         }
 

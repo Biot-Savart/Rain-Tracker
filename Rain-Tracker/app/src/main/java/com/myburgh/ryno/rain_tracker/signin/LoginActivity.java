@@ -1,10 +1,13 @@
 package com.myburgh.ryno.rain_tracker.signin;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,6 +21,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.myburgh.ryno.rain_tracker.MainActivity;
 import com.myburgh.ryno.rain_tracker.R;
 
 /**
@@ -35,10 +39,16 @@ public class LoginActivity extends AppCompatActivity implements
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
 
+    private MenuItem signInMenuItem;
+
+    private String doAction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        doAction = getIntent().getAction();
 
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
@@ -47,6 +57,8 @@ public class LoginActivity extends AppCompatActivity implements
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
         findViewById(R.id.disconnect_button).setOnClickListener(this);
+
+        signInMenuItem = MainActivity.menu.findItem(R.id.action_signin);
 
         // [START configure_signin]
         // Configure sign-in to request the user's ID, email address, and basic
@@ -83,6 +95,10 @@ public class LoginActivity extends AppCompatActivity implements
             Log.d(TAG, "Got cached sign-in");
             GoogleSignInResult result = opr.get();
             handleSignInResult(result);
+
+            if (doAction == null || !doAction.equals("signOut"))
+                finish();
+
         } else {
             // If the user has not previously signed in on this device or the sign-in has expired,
             // this asynchronous branch will attempt to sign in the user silently.  Cross-device
@@ -117,9 +133,13 @@ public class LoginActivity extends AppCompatActivity implements
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
+            MainActivity.googleAccount = acct;
             mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
+
             updateUI(true);
+
         } else {
+            MainActivity.googleAccount = null;
             // Signed out, show unauthenticated UI.
             updateUI(false);
         }
@@ -188,11 +208,13 @@ public class LoginActivity extends AppCompatActivity implements
         if (signedIn) {
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+            signInMenuItem.setTitle(getString(R.string.sign_out));
         } else {
             mStatusTextView.setText(R.string.signed_out);
 
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
+            signInMenuItem.setTitle(getString(R.string.action_sign_in));
         }
     }
 
