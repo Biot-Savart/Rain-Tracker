@@ -25,4 +25,6 @@
     <string name="desc_google_icon">Google Logo</string>
 
     <string name="title_text">Google Sign-In</string>
+
+    <string name="server_client_id">870580962135-6aae1lan9l7r77soqggiipihn60m399k.apps.googleusercontent.com</string>
 </resources>

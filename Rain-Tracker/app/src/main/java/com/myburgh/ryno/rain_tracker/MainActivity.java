@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.myburgh.ryno.rain_tracker.data.RainTrackerDatabase;
 import com.myburgh.ryno.rain_tracker.signin.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -73,5 +74,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        RainTrackerDatabase db = new RainTrackerDatabase();
+
+        if (googleAccount != null)
+            db.writeNewUser(googleAccount.getId(), googleAccount.getDisplayName(), googleAccount.getEmail());
+
     }
 }
